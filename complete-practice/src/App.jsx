@@ -1,5 +1,11 @@
-function App() {
-  return <div className="App"></div>;
-}
+import AddUser from './components/Users/AddUser';
+
+const App = () => {
+  return (
+    <div>
+      <AddUser />
+    </div>
+  );
+};
 
 export default App;
