@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useRef, useState } from 'react';
 
 import AuthContext from '../../store/auth-context';
 import Button from '../UI/Button/Button';
@@ -39,6 +39,8 @@ const Login = () => {
   const { isValid: emailIsValid } = emailState;
   const { isValid: passwordIsValid } = passwordState;
   const authCtx = useContext(AuthContext);
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
 
   useEffect(() => {
     const identifier = setTimeout(() => {
@@ -68,7 +70,13 @@ const Login = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    authCtx.onLogin(emailState.value, passwordState.value);
+    if (formIsValid) {
+      authCtx.onLogin(emailState.value, passwordState.value);
+    } else if (!emailIsValid) {
+      emailInputRef.current.activate();
+    } else {
+      passwordInputRef.current.activate();
+    }
   };
 
   return (
@@ -80,6 +88,7 @@ const Login = () => {
           label="E-mail"
           value={emailState.value}
           isValid={emailIsValid}
+          ref={emailInputRef}
           onChange={emailChangeHandler}
           onBlur={validateEmailHandler}
         />
@@ -89,11 +98,12 @@ const Login = () => {
           label="Password"
           value={passwordState.value}
           isValid={passwordIsValid}
+          ref={passwordInputRef}
           onChange={passwordChangeHandler}
           onBlur={validatePasswordHandler}
         />
         <div className={classes.actions}>
-          <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+          <Button type="submit" className={classes.btn}>
             Login
           </Button>
         </div>
