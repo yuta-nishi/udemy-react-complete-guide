@@ -52,7 +52,10 @@ export const sendCartData = (cart) => {
         'https://react-http-922cd-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json',
         {
           method: 'PUT',
-          body: JSON.stringify(cart),
+          body: JSON.stringify({
+            items: cart.items,
+            totalQuantity: cart.totalQuantity,
+          }),
         }
       );
 
