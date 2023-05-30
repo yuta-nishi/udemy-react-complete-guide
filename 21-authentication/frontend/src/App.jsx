@@ -11,6 +11,7 @@ import EventDetailPage, {
 import EventsPage, { loader as eventsLoader } from './pages/Events';
 import EventsRootLayout from './pages/EventsRoot';
 import HomePage from './pages/Home';
+import { action as logoutAction } from './pages/Logout';
 import NewEventPage from './pages/NewEvent';
 import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 import RootLayout from './pages/Root';
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
         path: 'auth',
         element: <AuthenticationPage />,
         action: authAction,
+      },
+      {
+        path: 'logout',
+        action: logoutAction,
       },
     ],
   },
