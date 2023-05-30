@@ -1,7 +1,6 @@
 import { redirect } from 'react-router-dom';
 
-export const action = () => {
+export function action() {
   localStorage.removeItem('token');
-
   return redirect('/');
-};
+}

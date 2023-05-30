@@ -8,12 +8,12 @@ function AuthenticationPage() {
 
 export default AuthenticationPage;
 
-export const action = async ({ request }) => {
+export async function action({ request }) {
   const searchParams = new URL(request.url).searchParams;
   const mode = searchParams.get('mode') || 'login';
 
   if (mode !== 'login' && mode !== 'signup') {
-    throw json({ message: 'unsupported mode.' }, { status: 422 });
+    throw json({ message: 'Unsupported mode.' }, { status: 422 });
   }
 
   const data = await request.formData();
@@ -22,7 +22,7 @@ export const action = async ({ request }) => {
     password: data.get('password'),
   };
 
-  const response = await fetch(`http://localhost:8080/${mode}`, {
+  const response = await fetch('http://localhost:8080/' + mode, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,4 +44,4 @@ export const action = async ({ request }) => {
   localStorage.setItem('token', token);
 
   return redirect('/');
-};
+}
